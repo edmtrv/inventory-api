@@ -13,7 +13,7 @@ mongoose
     useCreateIndex: true,
     useFindAndModify: false,
   })
-  .then((conn) => console.log(conn.connections));
+  .then(() => console.log('MongoDB working'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
