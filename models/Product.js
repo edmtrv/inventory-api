@@ -5,10 +5,12 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true, 'A product name is required'],
     unique: true,
+    minlength: [2, 'Product name must be longer than 2 characters'],
   },
   description: {
     type: String,
     required: [true, 'A product description is required'],
+    minlength: [10, 'A longer description is required'],
   },
   price: { type: Number, required: [true, 'A product price is required'] },
   number_in_stock: { type: Number },

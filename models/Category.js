@@ -9,8 +9,14 @@ const categorySchema = new mongoose.Schema({
   description: {
     type: String,
     required: [true, 'A category must have a description'],
+    minlength: [10, 'A longer description is required'],
   },
-  products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
+  products: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product',
+    },
+  ],
 });
 
 categorySchema.set('toJSON', {

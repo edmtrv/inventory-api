@@ -2,7 +2,7 @@ const Category = require('../models/Category');
 
 exports.getCategories = async (req, res) => {
   try {
-    const categories = await Category.find();
+    const categories = await Category.find().populate('products');
 
     res.status(200).json({
       status: 'success',
@@ -19,7 +19,9 @@ exports.getCategories = async (req, res) => {
 
 exports.getCateogry = async (req, res) => {
   try {
-    const category = await Category.findById(req.params.id);
+    const category = await Category.findById(req.params.id).populate(
+      'products'
+    );
 
     res.status(200).json({
       status: 'success',

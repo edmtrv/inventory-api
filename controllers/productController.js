@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+const Category = require('../models/Category');
 
 exports.getProducts = async (req, res) => {
   try {
@@ -16,6 +17,7 @@ exports.getProducts = async (req, res) => {
     });
   }
 };
+
 exports.getProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -31,9 +33,18 @@ exports.getProduct = async (req, res) => {
     });
   }
 };
+
 exports.createProduct = async (req, res) => {
   try {
-    const newProduct = await Product.create(req.body);
+    const category = await Category.findById(req.body.category);
+
+    const newProduct = await Product.create({
+      ...req.body,
+      category: category.id,
+    });
+
+    category.products = category.products.concat(newProduct.id);
+    await category.save();
 
     res.status(201).json({
       status: 'success',
