@@ -1,4 +1,5 @@
 const Category = require('../models/Category');
+const User = require('../models/User');
 
 exports.getCategories = async (req, res) => {
   try {
@@ -37,7 +38,11 @@ exports.getCateogry = async (req, res) => {
 
 exports.createCategory = async (req, res) => {
   try {
-    const newCategory = await Category.create(req.body);
+    const user = await User.findById(req.body.user);
+    const newCategory = await Category.create({ ...req.body, user: user.id });
+
+    user.categories = user.categories.concat(newCategory.id);
+    await user.save();
 
     res.status(201).json({
       status: 'success',

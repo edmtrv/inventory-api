@@ -1,5 +1,6 @@
 const Product = require('../models/Product');
 const Category = require('../models/Category');
+const User = require('../models/User');
 
 exports.getProducts = async (req, res) => {
   try {
@@ -36,14 +37,18 @@ exports.getProduct = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   try {
+    const user = await User.findById(req.body.user);
     const category = await Category.findById(req.body.category);
 
     const newProduct = await Product.create({
       ...req.body,
+      user: user.id,
       category: category.id,
     });
 
+    user.products = user.products.concat(newProduct.id);
     category.products = category.products.concat(newProduct.id);
+    await user.save();
     await category.save();
 
     res.status(201).json({
