@@ -1,3 +1,4 @@
+const auth = require('../helpers/auth');
 const Product = require('../models/Product');
 const Category = require('../models/Category');
 const User = require('../models/User');
@@ -37,6 +38,8 @@ exports.getProduct = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   try {
+    await auth(req, res);
+
     const user = await User.findById(req.body.user);
     const category = await Category.findById(req.body.category);
 
@@ -65,6 +68,7 @@ exports.createProduct = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
   try {
+    await auth(req, res);
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
@@ -84,6 +88,7 @@ exports.updateProduct = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
   try {
+    await auth(req, res);
     await Product.findByIdAndRemove(req.params.id);
 
     res.status(204).json({

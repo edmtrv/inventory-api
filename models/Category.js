@@ -17,6 +17,10 @@ const categorySchema = new mongoose.Schema({
       ref: 'Product',
     },
   ],
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
 });
 
 categorySchema.set('toJSON', {

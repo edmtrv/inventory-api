@@ -1,3 +1,4 @@
+const auth = require('../helpers/auth');
 const Category = require('../models/Category');
 const User = require('../models/User');
 
@@ -38,6 +39,7 @@ exports.getCateogry = async (req, res) => {
 
 exports.createCategory = async (req, res) => {
   try {
+    await auth(req, res);
     const user = await User.findById(req.body.user);
     const newCategory = await Category.create({ ...req.body, user: user.id });
 
@@ -58,6 +60,7 @@ exports.createCategory = async (req, res) => {
 
 exports.updateCateogry = async (req, res) => {
   try {
+    await auth(req.res);
     const category = await Category.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
@@ -77,6 +80,7 @@ exports.updateCateogry = async (req, res) => {
 
 exports.deleteCateogry = async (req, res) => {
   try {
+    await auth(req, res);
     await Category.findByIdAndRemove(req.params.id);
 
     res.status(204).json({
