@@ -19,6 +19,8 @@ const auth = async (req, res) => {
       message: 'Token missing or invalid',
     });
   }
+
+  return decodedToken.id;
 };
 
 module.exports = auth;

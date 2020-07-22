@@ -39,9 +39,15 @@ exports.getCateogry = async (req, res) => {
 
 exports.createCategory = async (req, res) => {
   try {
-    await auth(req, res);
-    const user = await User.findById(req.body.user);
-    const newCategory = await Category.create({ ...req.body, user: user.id });
+    const userId = await auth(req, res);
+    const user = await User.findById(userId);
+    const newCategory = await Category.create({
+      ...req.body,
+      user: user.id,
+      products: [],
+    });
+
+    console.log(newCategory);
 
     user.categories = user.categories.concat(newCategory.id);
     await user.save();

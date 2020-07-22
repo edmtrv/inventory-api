@@ -38,9 +38,9 @@ exports.getProduct = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   try {
-    await auth(req, res);
+    const userId = await auth(req, res);
 
-    const user = await User.findById(req.body.user);
+    const user = await User.findById(userId);
     const category = await Category.findById(req.body.category);
 
     const newProduct = await Product.create({
