@@ -47,8 +47,6 @@ exports.createCategory = async (req, res) => {
       products: [],
     });
 
-    console.log(newCategory);
-
     user.categories = user.categories.concat(newCategory.id);
     await user.save();
 
