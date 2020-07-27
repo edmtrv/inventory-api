@@ -1,14 +1,9 @@
-require('dotenv').config('./.env');
+require('dotenv').config();
 const mongoose = require('mongoose');
 const app = require('./app');
 
-const DB_STRING = process.env.DB_URL.replace(
-  '<PASSWORD>',
-  process.env.DB_PASSWORD
-);
-
 mongoose
-  .connect(DB_STRING, {
+  .connect(process.env.DB_URL, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
