@@ -9,7 +9,7 @@
   "scripts": {
     "start": "nodemon server.js",
     "build:ui": "rm -rf build && cd ../inventory-frontend && npm run build --prod && cp -r build ../inventory-app",
-    "deploy": "gir push heroku master",
+    "deploy": "git push heroku master",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
     "logs:prod": "heroku logs --tail"
   },
