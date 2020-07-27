@@ -1,4 +1,4 @@
-### Inventory App
+## Inventory App
 
 An inventory app built with Node and React for the odin project curriculum.
 
