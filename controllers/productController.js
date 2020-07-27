@@ -61,7 +61,7 @@ exports.createProduct = async (req, res) => {
   } catch (err) {
     res.status(404).json({
       status: 'failure',
-      message: err,
+      message: `some error ${err}`,
     });
   }
 };
